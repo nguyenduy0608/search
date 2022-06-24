@@ -35,11 +35,9 @@ export default function App() {
   useEffect(() => {
     onSearch(people, searchKey)
   }, [searchKey])
-
-
   return (
     <div className="App" style = {{padding : '30px'}} >
-      <input type="text" onChange={handleChange} />
+      <input type="text" onChange={handleChange} value = {searchKey}/>
       <h1>List people: </h1>
       {listPeople.map(persone => (
         <p>{persone.name}</p>
