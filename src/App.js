@@ -1,25 +1,49 @@
-import logo from './logo.svg';
-import './App.css';
+import { useEffect, useState } from "react";
 
-function App() {
+export default function App() {
+
+  const people = [
+    {
+      id: 1,
+      name: 'huy'
+    },
+    {
+      id: 2,
+      name: 'hai'
+    },
+    {
+      id: 3,
+      name: 'mai'
+    },
+    {
+      id: 4,
+      name: 'hoang'
+    }
+  ]
+
+  
+  const [searchKey, setSearchKey] = useState('')
+  const [listPeople, setListPeople] = useState(people)
+  const handleChange = e => setSearchKey(e.target.value)
+
+  const onSearch = (arr, keyword) => {
+    const matchedArr = arr.filter( ele =>  ele.name.toLowerCase().includes(keyword.toLowerCase())
+  )
+    setListPeople(matchedArr)
+  }
+
+  useEffect(() => {
+    onSearch(people, searchKey)
+  }, [searchKey])
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="App" style = {{padding : '30px'}} >
+      <input type="text" onChange={handleChange} />
+      <h1>List people: </h1>
+      {listPeople.map(persone => (
+        <p>{persone.name}</p>
+      ))}
     </div>
   );
 }
-
-export default App;
